@@ -1,0 +1,91 @@
+
+<div class="form-content">
+    <form action="#" class="form">
+        <div class="form-head">Employee Payroll form</div>
+        <div class="row-content">
+            <label class="label text" for="name">Name</label>
+            <mat-form-field appearance="outline">
+                <input matInput  pattern="^[A-Z]{1}[a-z]{3,}$" minlength="4" (input)="onInput($event)" 
+                [(ngModel)]="employee.name" name="name" #name="ngModel" required placeholder="Enter your full name">
+            </mat-form-field>
+            <span class="error-output" *ngIf="name.invalid && (name.dirty || name.touched)">
+                Invalid Name 
+            </span>
+            <span class="error-output" *ngIf="name.errors?.['required']">
+                Name Field can't be empty.
+            </span>
+        </div>
+
+
+        <div class="row-content">
+            <mat-radio-group [(ngModel)]="employee.profilePic" [ngModelOptions]="{standalone:true}" ngDefaultControl
+            aria-label="Select an option" class="profilePic">
+            <label class="label text" for="name">Profile Picture</label>
+                <mat-radio-button value="{{imgUrl_1}}"><img [src]="imgUrl_1" class="profile-img" alt="Profile-1" />
+                </mat-radio-button>
+                <mat-radio-button value="{{imgUrl_2}}"><img [src]="imgUrl_2" class="profile-img" alt="Profile-2" />
+                </mat-radio-button>
+                <mat-radio-button value="{{imgUrl_3}}"><img [src]="imgUrl_3" class="profile-img" alt="Profile-3" />
+                </mat-radio-button>
+                <mat-radio-button value="{{imgUrl_4}}"><img [src]="imgUrl_4" class="profile-img" alt="Profile-4" />
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="row-content">
+            <mat-radio-group [(ngModel)]="employee.gender" [ngModelOptions]="{standalone:true}" ngDefaultControl>
+                <label class="label text">Gender</label>
+                <mat-radio-button value="Male">Male</mat-radio-button>
+                <mat-radio-button value="Female">Female</mat-radio-button>
+                <mat-radio-button value="Other">Other</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="row-content">
+            <label class="label text" for="name">Salary</label>
+            <mat-form-field>
+                <mat-label>Select Salary</mat-label>
+                <mat-select [(ngModel)]="employee.salary"  [ngModelOptions]="{standalone: true}" ngDefaultControl [value]="employee.salary">
+                    <mat-option *ngFor="let salary of salarys" [value]="salary.value">{{salary.viewValue}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="row-content">
+            <label class="label text" for="department">Department</label>
+            <div *ngFor="let departName of depart2,let i = index ">
+                <mat-checkbox [value]="this.employee.department[i]" (change)="checkBoxChange(departName)" (ngModel)="departName" 
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl> {{departName}} </mat-checkbox>
+            </div>
+        </div>
+
+        <div class="row-content">
+            <label class="label text" for="StartDate">Start Date</label>
+            <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" id="StartDate" name="date" [(ngModel)]="employee.startDate"  [ngModelOptions]="{standalone: true}"ngDefaultControl required>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="row-content">
+            <label class="label text" for="note">Notes</label>
+            <textarea id="note" class="input" placeholder="" style="height:100px" [(ngModel)]="employee.note" [ngModelOptions]="{standalone: true}" ngDefaultControl >
+            </textarea>
+        </div>
+
+        <div class="buttonParent">
+            <button  class="resetButton button cancelButton" routerLink="/dashboard">Cancel</button>
+            <div class="submit-reset">
+                <button type="submit" class="button submitButton" *ngIf="this.Id==null" (click)="addEmployee()">Submit</button>
+                
+                <button type="submit" class="button submitButton" *ngIf="this.Id!=null" (click)="updateEmployeeData()">Update</button>
+                
+                <button type="reset" class="resetButton button">Reset</button>
+            </div>
+        </div> 
+        
+    </form>
+</div>

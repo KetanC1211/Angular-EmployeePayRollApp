@@ -1,0 +1,44 @@
+<div class="main-content">
+    <div class="header-content">
+        <div class="emp-detail-text">
+            Employee Details <div class="emp-count" >{{this.countNumber}}</div>
+        </div>
+        <button mat-button (click) = "btnClick()"><img src="../../assets/add-24px.svg"> Add user</button>
+    </div>
+    <div class="table-main">
+        <table class="table" id="display">
+            <tr>
+                <!-- <th>Id</th> -->
+                <th class="pic"> </th>
+                <th class="table-name-column">{{this.name}}</th>
+                <th class="table-gender-column">{{this.gender}}</th>
+                <th >{{this.department}}</th>
+                <th>{{this.salary}}</th>
+                <!-- <th>{{this.note}}</th> -->
+                <th class="table-gender-column" >{{this.startDate}}</th>
+                <th class="tb-header-actions">Actions</th>
+            </tr>
+            
+            <tr class="tr-height" *ngFor="let employee of allEmp">
+                <!-- <td>{{employee.id}}</td> -->
+                <td class="pic" ><img [src]="employee.profilePic" ></td>
+                <td class="table-name-column">{{employee.name}}</td>
+                <td class="table-gender-column">{{employee.gender}}</td>
+                <td >
+                    
+                        <p class="dept-label" *ngFor="let i of employee.department">{{i}}</p>
+                    
+                </td>                
+                <td>₹ {{employee.salary}}</td>
+                <!-- <td>{{employee.note}}</td> -->
+                <td class="table-gender-column">{{ employee.startDate | date:'shortDate' }}</td>
+                <td class="action-icon tb-header-actions" >
+                    <img (click)="editById(employee.id)" alt="Edit" src="/assets/icons/create-black-18dp.svg" >
+                    <img (click)="deleteEmp(employee.id)" style="margin-right: 20px;"  alt="delete" src="/assets/icons/delete-black-18dp.svg">
+                    <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home" (click)="editById(employee.employeeId)" ></mat-icon> -->
+                </td>
+
+            </tr> 
+        </table>
+    </div>
+</div>
